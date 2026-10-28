@@ -1,0 +1,45 @@
+---
+name: evcc (shadow)
+version: 0.318.1
+slug: evcc
+description: smart charging | open source energy management — shadow mode, SEMP/SSDP isolated from LAN
+url: https://github.com/evcc-io/evcc
+stage: stable
+
+boot: auto
+startup: application
+init: false
+panel_icon: mdi:ev-station
+panel_admin: false
+ingress: true
+ingress_port: 7070
+
+# SHADOW MODE: no host_network, no published ports.
+# SEMP/SSDP/mDNS announcements stay on the Docker bridge and never reach the
+# physical LAN, so the 1KOMMA5 Gateway cannot discover evcc (Heartbeat stays
+# the sole HEMS). UI is served through HA ingress only.
+host_network: false
+legacy: true
+
+arch:
+  - aarch64
+  - amd64
+
+map: 
+  - type: addon_config
+    read_only: False
+  - type: homeassistant_config
+    read_only: False
+
+image: evcc/evcc
+
+options: 
+  sqlite_file: /data/evcc.db
+  config_file: /config/evcc.yaml
+
+schema:
+  sqlite_file: str
+  config_file: str?
+  OPTIMIZER_URI: url?
+  SEMP_BASE_URL: url?
+  EVCC_REMOTE_ACCESS: str?
