@@ -1,7 +1,7 @@
 ---
 name: evcc (full)
 version: 0.318.1
-slug: evcc
+slug: evcc-full
 description: smart charging | open source energy management
 url: https://github.com/evcc-io/evcc
 stage: stable
